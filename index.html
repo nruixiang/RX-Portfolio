@@ -101,9 +101,11 @@
   /* ─── HERO ─── */
   .hero {
     min-height: 100vh;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    display: flex;
+    flex-direction: column;
     align-items: center;
+    justify-content: center;
+    text-align: center;
     padding: 0 3rem;
     padding-top: 80px;
     position: relative;
@@ -135,7 +137,10 @@
   .hero-content {
     position: relative;
     z-index: 1;
-    padding-right: 4rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 700px;
   }
 
   .hero-tag {
@@ -195,7 +200,7 @@
     font-size: 0.95rem;
     color: var(--text2);
     line-height: 1.75;
-    max-width: 460px;
+    max-width: 560px;
     margin-bottom: 2.5rem;
     animation: fadeUp 0.6s 0.3s ease both;
   }
@@ -248,13 +253,14 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    animation: fadeUp 0.6s 0.35s ease both;
+    margin-bottom: 2.5rem;
+    animation: fadeUp 0.6s 0.1s ease both;
   }
 
   .avatar-ring {
     position: relative;
-    width: 280px;
-    height: 280px;
+    width: 180px;
+    height: 180px;
   }
 
   .avatar-ring::before {
@@ -278,19 +284,12 @@
   @keyframes spin { to { transform: rotate(360deg); } }
 
   .avatar-img {
-    width: 280px;
-    height: 280px;
+    width: 180px;
+    height: 180px;
     border-radius: 50%;
     object-fit: cover;
     border: 2px solid var(--border2);
-    background: var(--bg3);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: var(--serif);
-    font-size: 4rem;
-    color: var(--accent);
-    letter-spacing: -0.02em;
+    display: block;
   }
 
   .stat-chips {
@@ -298,7 +297,7 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
-    right: -40px;
+    left: calc(100% + 24px);
     top: 50%;
     transform: translateY(-50%);
   }
@@ -602,8 +601,9 @@
   /* ─── RESPONSIVE ─── */
   @media (max-width: 900px) {
     nav { padding: 1rem 1.5rem; }
-    .hero { grid-template-columns: 1fr; padding: 6rem 2.5rem 3rem; text-align: center; }
+    .hero { padding: 6rem 1.5rem 3rem; }
     .hero-name { white-space: normal; font-size: clamp(2rem, 8vw, 3rem); }
+    .stat-chips { position: static; transform: none; flex-direction: row; flex-wrap: wrap; justify-content: center; margin-top: 1rem; }
     .hero-visual { display: none; }
     .hero-bio { max-width: 100%; }
     .hero-actions { justify-content: center; }
@@ -634,20 +634,9 @@
   <div class="hero-grid-bg"></div>
   <div class="hero-glow"></div>
 
-  <div class="hero-content">
-    <div class="hero-tag">Available for opportunities</div>
-    <h1 class="hero-name">Ng Rui <em>Xiang</em></h1>
-    <p class="hero-title">UI/UX Designer &amp; Game Designer · Singapore</p>
-    <p class="hero-bio">Six years of project experience designing and developing games across different scopes and genres. I focus on mechanical and technical design — building systems that are balanced, scalable, and satisfying to interact with.</p>
-    <div class="hero-actions">
-      <a href="#projects" class="btn-primary">View my work →</a>
-      <a href="https://41b76fb7-7961-4950-a301-e9c41ed98d9f.filesusr.com/ugd/6a3ef5_bce46f3f52894cc4ab91cb2649ccc59e.pdf" target="_blank" class="btn-ghost">↓ Resume</a>
-    </div>
-  </div>
-
   <div class="hero-visual">
     <div class="avatar-ring">
-      <div class="avatar-img">RX</div>
+      <img class="avatar-img" src="images/RXDP.png" alt="Ng Rui Xiang">
     </div>
     <div class="stat-chips">
       <div class="stat-chip">
@@ -662,6 +651,17 @@
         <strong>Unity</strong>
         <span>Primary engine</span>
       </div>
+    </div>
+  </div>
+
+  <div class="hero-content">
+    <div class="hero-tag">Available for opportunities</div>
+    <h1 class="hero-name">Ng Rui <em>Xiang</em></h1>
+    <p class="hero-title">UI/UX Designer &amp; Game Designer · Singapore</p>
+    <p class="hero-bio">Six years of project experience designing and developing games across different scopes and genres. I focus on mechanical and technical design — building systems that are balanced, scalable, and satisfying to interact with.</p>
+    <div class="hero-actions">
+      <a href="#projects" class="btn-primary">View my work →</a>
+      <a href="https://41b76fb7-7961-4950-a301-e9c41ed98d9f.filesusr.com/ugd/6a3ef5_bce46f3f52894cc4ab91cb2649ccc59e.pdf" target="_blank" class="btn-ghost">↓ Resume</a>
     </div>
   </div>
 </section>
