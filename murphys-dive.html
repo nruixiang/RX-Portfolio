@@ -54,6 +54,12 @@ h2.section-heading { font-family: var(--serif); font-size: 1.75rem; margin-botto
 .img-frame { border-radius: var(--radius); overflow: hidden; background: var(--bg3); margin: 2rem 0; border: 1px solid var(--border); }
 .img-frame img { width: 100%; display: block; }
 .img-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 2rem 0; }
+.video-card { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; margin-bottom: 1.5rem; }
+.video-label { padding: 1rem 1.25rem 0.75rem; }
+.video-label h3 { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.25rem; }
+.video-label p { font-size: 0.8rem; color: var(--text3); font-family: var(--mono); }
+.video-embed { position: relative; aspect-ratio: 16/9; }
+.video-embed iframe { position: absolute; inset: 0; width: 100%; height: 100%; }
 .challenge-list { list-style: none; display: flex; flex-direction: column; gap: 1.25rem; margin: 1.5rem 0; }
 .challenge-item { display: flex; gap: 1rem; align-items: flex-start; }
 .challenge-num { flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%; background: var(--accent-dim); color: var(--accent); font-family: var(--mono); font-size: 11px; font-weight: 500; display: flex; align-items: center; justify-content: center; margin-top: 2px; }
@@ -135,6 +141,33 @@ footer { padding: 3rem; border-top: 1px solid var(--border); display: flex; alig
     <h2 class="section-heading">Game Overview</h2>
     <p class="prose">Murphy's Dive is a <strong>Dungeon-Crawler Action Shooter</strong>. It features Murphy, an aspiring adventurer with grand ambitions delving into a dungeon to recover a legendary sword. Tragedy strikes as his party fall along the way, but Murphy seizes the chance to claim their weapons. However, due to his lack of skill, he is unable to wield them properly. Will he succeed in claiming the legendary sword or fall in his attempt?</p>
     <p class="prose">Inspired by Vampire Survivors and Enter the Gungeon, the core twist is weapons that interact with the player in unexpected ways — adding an extra layer of challenge and skill expression beyond typical shooters.</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="content-block reveal">
+    <div class="section-label">Videos</div>
+    <h2 class="section-heading">Trailer &amp; Gameplay</h2>
+
+    <div class="video-card">
+      <div class="video-label">
+        <h3>Official Trailer</h3>
+        <p>Murphy's Dive — Reveal Trailer</p>
+      </div>
+      <div class="video-embed">
+        <iframe src="https://www.youtube.com/embed/fdXfAgd7iuA" title="Murphy's Dive Trailer" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+    </div>
+
+    <div class="video-card">
+      <div class="video-label">
+        <h3>Gameplay</h3>
+        <p>Murphy's Dive — Gameplay Footage</p>
+      </div>
+      <div class="video-embed">
+        <iframe src="https://www.youtube.com/embed/CLiGdu0Vp2k" title="Murphy's Dive Gameplay" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+    </div>
   </div>
 
   <div class="divider"></div>
