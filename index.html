@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ng Rui Xiang — Game & UI/UX Designer</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #f5f3ee;
+    --bg2: #edeae3;
+    --bg3: #e4e0d8;
+    --border: rgba(0,0,0,0.08);
+    --border2: rgba(0,0,0,0.14);
+    --text: #1a1916;
+    --text2: #6b6860;
+    --text3: #a8a49c;
+    --accent: #1a4fff;
+    --accent2: #1240e0;
+    --accent-dim: rgba(26,79,255,0.08);
+    --accent-dim2: rgba(26,79,255,0.04);
+    --serif: 'DM Serif Display', serif;
+    --sans: 'Outfit', sans-serif;
+    --mono: 'DM Mono', monospace;
+    --radius: 12px;
+    --radius-lg: 20px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-weight: 400;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* Noise texture overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.6;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem 3rem;
+    background: rgba(245,243,238,0.88);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--text2);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--text); }
+
+  .nav-cta {
+    background: var(--accent);
+    color: #ffffff !important;
+    padding: 0.45rem 1.1rem;
+    border-radius: 6px;
+    font-weight: 600 !important;
+  }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 0 3rem;
+    padding-top: 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-grid-bg {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,0,0,0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,0,0,0.05) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+    pointer-events: none;
+  }
+
+  .hero-glow {
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(26,79,255,0.05) 0%, transparent 70%);
+    top: 50%; right: 10%;
+    transform: translateY(-50%);
+    pointer-events: none;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    padding-right: 4rem;
+  }
+
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--accent-dim);
+    border: 1px solid rgba(26,79,255,0.2);
+    color: var(--accent);
+    font-size: 11px;
+    font-family: var(--mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.35rem 0.85rem;
+    border-radius: 100px;
+    margin-bottom: 1.5rem;
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .hero-tag::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+    animation: pulse 2s ease infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.7); }
+  }
+
+  .hero-name {
+    font-family: var(--serif);
+    font-size: clamp(3rem, 5vw, 5.5rem);
+    line-height: 1.0;
+    color: var(--text);
+    margin-bottom: 0.75rem;
+    animation: fadeUp 0.6s 0.1s ease both;
+  }
+
+  .hero-name em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .hero-title {
+    font-size: 1rem;
+    color: var(--text2);
+    margin-bottom: 1.75rem;
+    letter-spacing: 0.02em;
+    animation: fadeUp 0.6s 0.2s ease both;
+  }
+
+  .hero-bio {
+    font-size: 0.95rem;
+    color: var(--text2);
+    line-height: 1.75;
+    max-width: 460px;
+    margin-bottom: 2.5rem;
+    animation: fadeUp 0.6s 0.3s ease both;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    animation: fadeUp 0.6s 0.4s ease both;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--accent);
+    color: #ffffff;
+    padding: 0.75rem 1.75rem;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+  }
+
+  .btn-primary:hover { background: var(--accent2); transform: translateY(-1px); }
+
+  .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text2);
+    padding: 0.75rem 1.5rem;
+    border: 1px solid var(--border2);
+    border-radius: 8px;
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: color 0.2s, border-color 0.2s, background 0.2s;
+  }
+
+  .btn-ghost:hover {
+    color: var(--text);
+    border-color: rgba(255,255,255,0.25);
+    background: rgba(255,255,255,0.04);
+  }
+
+  .hero-visual {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: fadeUp 0.6s 0.35s ease both;
+  }
+
+  .avatar-ring {
+    position: relative;
+    width: 280px;
+    height: 280px;
+  }
+
+  .avatar-ring::before {
+    content: '';
+    position: absolute;
+    inset: -12px;
+    border-radius: 50%;
+    border: 1px dashed rgba(26,79,255,0.25);
+    animation: spin 20s linear infinite;
+  }
+
+  .avatar-ring::after {
+    content: '';
+    position: absolute;
+    inset: -24px;
+    border-radius: 50%;
+    border: 1px dashed rgba(26,79,255,0.1);
+    animation: spin 30s linear infinite reverse;
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .avatar-img {
+    width: 280px;
+    height: 280px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--border2);
+    background: var(--bg3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--serif);
+    font-size: 4rem;
+    color: var(--accent);
+    letter-spacing: -0.02em;
+  }
+
+  .stat-chips {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    right: -40px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .stat-chip {
+    background: var(--bg2);
+    border: 1px solid var(--border2);
+    border-radius: 10px;
+    padding: 0.6rem 1rem;
+    font-size: 12px;
+    white-space: nowrap;
+  }
+
+  .stat-chip strong {
+    display: block;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--accent);
+    line-height: 1.1;
+  }
+
+  .stat-chip span {
+    color: var(--text3);
+    font-size: 11px;
+  }
+
+  /* ─── SECTIONS ─── */
+  section {
+    padding: 6rem 3rem;
+    position: relative;
+  }
+
+  .section-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .section-label::after {
+    content: '';
+    height: 1px;
+    width: 3rem;
+    background: var(--accent);
+    opacity: 0.4;
+  }
+
+  .section-title {
+    font-family: var(--serif);
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    line-height: 1.1;
+    margin-bottom: 1rem;
+  }
+
+  .section-sub {
+    color: var(--text2);
+    font-size: 1rem;
+    max-width: 540px;
+    line-height: 1.7;
+    margin-bottom: 3.5rem;
+  }
+
+  /* ─── PROJECTS ─── */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .project-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.25s, transform 0.25s, background 0.25s;
+    display: flex;
+    flex-direction: column;
+    group: '';
+  }
+
+  .project-card:hover {
+    border-color: var(--border2);
+    background: var(--bg3);
+    transform: translateY(-3px);
+  }
+
+  .project-card.featured {
+    grid-column: span 2;
+    flex-direction: row;
+  }
+
+  .card-img {
+    aspect-ratio: 1;
+    background: var(--bg3);
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  .project-card.featured .card-img {
+    width: 280px;
+    aspect-ratio: auto;
+  }
+
+  .card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+    filter: brightness(0.85);
+  }
+
+  .project-card:hover .card-img img { transform: scale(1.04); filter: brightness(1); }
+
+  .card-img-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--serif);
+    font-size: 3rem;
+    color: var(--text3);
+  }
+
+  .card-body {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  .card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 0.85rem;
+  }
+
+  .tag {
+    font-size: 11px;
+    font-family: var(--mono);
+    color: var(--text3);
+    background: var(--bg);
+    border: 1px solid var(--border);
+    padding: 2px 8px;
+    border-radius: 4px;
+    letter-spacing: 0.04em;
+  }
+
+  .tag.accent {
+    color: var(--accent);
+    background: var(--accent-dim2);
+    border-color: rgba(26,79,255,0.2);
+  }
+
+  .card-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    line-height: 1.3;
+  }
+
+  .card-desc {
+    font-size: 0.875rem;
+    color: var(--text2);
+    line-height: 1.6;
+    flex: 1;
+    margin-bottom: 1.25rem;
+  }
+
+  .card-link {
+    font-size: 12px;
+    font-family: var(--mono);
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    letter-spacing: 0.05em;
+    transition: gap 0.2s;
+  }
+
+  .project-card:hover .card-link { gap: 10px; }
+
+  /* ─── ABOUT ─── */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .about-text p {
+    color: var(--text2);
+    font-size: 0.95rem;
+    line-height: 1.8;
+    margin-bottom: 1.25rem;
+  }
+
+  .about-text p strong { color: var(--text); font-weight: 500; }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .skill-block {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.25rem;
+  }
+
+  .skill-icon {
+    font-size: 1.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .skill-name {
+    font-weight: 500;
+    font-size: 0.9rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .skill-list {
+    font-size: 0.8rem;
+    color: var(--text3);
+    font-family: var(--mono);
+    line-height: 1.7;
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    padding: 3rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .footer-name {
+    font-family: var(--serif);
+    font-size: 1.25rem;
+    color: var(--text2);
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 1.5rem;
+  }
+
+  .footer-links a {
+    color: var(--text3);
+    text-decoration: none;
+    font-size: 13px;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: var(--accent); }
+
+  .footer-copy {
+    font-size: 12px;
+    color: var(--text3);
+    font-family: var(--mono);
+  }
+
+  /* ─── DIVIDER ─── */
+  .divider {
+    height: 1px;
+    background: var(--border);
+    margin: 0 3rem;
+  }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .hero { grid-template-columns: 1fr; padding: 6rem 1.5rem 3rem; text-align: center; }
+    .hero-visual { display: none; }
+    .hero-bio { max-width: 100%; }
+    .hero-actions { justify-content: center; }
+    section { padding: 4rem 1.5rem; }
+    .projects-grid { grid-template-columns: 1fr; }
+    .project-card.featured { grid-column: 1; flex-direction: column; }
+    .project-card.featured .card-img { width: 100%; aspect-ratio: 16/9; }
+    .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .skills-grid { grid-template-columns: 1fr 1fr; }
+    footer { flex-direction: column; gap: 1.25rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">RX — Portfolio</a>
+  <ul class="nav-links">
+    <li><a href="#projects">Work</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="https://www.linkedin.com/in/ruixiang-ng-308ab4163/" target="_blank" class="nav-cta">LinkedIn ↗</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-glow"></div>
+
+  <div class="hero-content">
+    <div class="hero-tag">Available for opportunities</div>
+    <h1 class="hero-name">Ng Rui<br><em>Xiang</em></h1>
+    <p class="hero-title">UI/UX Designer &amp; Game Designer · Singapore</p>
+    <p class="hero-bio">Six years of project experience designing and developing games across different scopes and genres. I focus on mechanical and technical design — building systems that are balanced, scalable, and satisfying to interact with.</p>
+    <div class="hero-actions">
+      <a href="#projects" class="btn-primary">View my work →</a>
+      <a href="https://41b76fb7-7961-4950-a301-e9c41ed98d9f.filesusr.com/ugd/6a3ef5_bce46f3f52894cc4ab91cb2649ccc59e.pdf" target="_blank" class="btn-ghost">↓ Resume</a>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="avatar-ring">
+      <div class="avatar-img">RX</div>
+    </div>
+    <div class="stat-chips">
+      <div class="stat-chip">
+        <strong>6+</strong>
+        <span>Years experience</span>
+      </div>
+      <div class="stat-chip">
+        <strong>7</strong>
+        <span>Projects shipped</span>
+      </div>
+      <div class="stat-chip">
+        <strong>Unity</strong>
+        <span>Primary engine</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- FEATURED PROJECTS -->
+<section id="projects">
+  <div class="section-label">Selected work</div>
+  <h2 class="section-title reveal">What I've built</h2>
+  <p class="section-sub reveal">A mix of game design, UI/UX, and digital media — each project driven by curiosity and an obsession with making systems feel good.</p>
+
+  <div class="projects-grid">
+
+    <!-- Featured -->
+    <div class="project-card featured reveal" onclick="window.open('https://ruidiotxienon.wixsite.com/mysite/portfolio', '_blank')">
+      <div class="card-img">
+        <img src="https://static.wixstatic.com/media/6a3ef5_3dbe3761740743e6949171671dd3fb09~mv2.jpg/v1/crop/x_0,y_0,w_1081,h_1080/fill/w_600,h_600,al_c,q_80/altf4_ui_mainmenu_background-export_edited.jpg" alt="Murphy's Dive">
+      </div>
+      <div class="card-body">
+        <div class="card-tags">
+          <span class="tag accent">Featured</span>
+          <span class="tag">Unity</span>
+          <span class="tag">PC</span>
+          <span class="tag">Action Shooter</span>
+        </div>
+        <h3 class="card-title">Murphy's Dive</h3>
+        <p class="card-desc">An action shooter built in Unity for PC. Designed with a focus on mechanical depth, balanced enemy AI, and tight-feeling player controls that reward skill expression.</p>
+        <span class="card-link">View case study →</span>
+      </div>
+    </div>
+
+    <!-- KnowVerse -->
+    <div class="project-card reveal" onclick="window.open('https://ruidiotxienon.wixsite.com/mysite/copy-of-mega-man-maker', '_blank')">
+      <div class="card-img">
+        <img src="https://static.wixstatic.com/media/6a3ef5_6eb4027e19334246a3cc88ea9f266666~mv2.jpg/v1/fill/w_600,h_600,al_c,q_80/6a3ef5_6eb4027e19334246a3cc88ea9f266666~mv2.jpg" alt="KnowVerse">
+      </div>
+      <div class="card-body">
+        <div class="card-tags">
+          <span class="tag">Unity</span>
+          <span class="tag">Mobile</span>
+          <span class="tag">Educational</span>
+        </div>
+        <h3 class="card-title">KnowVerse</h3>
+        <p class="card-desc">A mobile educational game that makes learning engaging through game mechanics and interactive systems.</p>
+        <span class="card-link">View project →</span>
+      </div>
+    </div>
+
+    <!-- Pet Battles -->
+    <div class="project-card reveal" onclick="window.open('https://ruidiotxienon.wixsite.com/mysite/pet-battles', '_blank')">
+      <div class="card-img">
+        <img src="https://static.wixstatic.com/media/6a3ef5_5409a3d7a80e42a1a829530f162ae1bd~mv2.png/v1/fill/w_600,h_600,al_c,q_85/Android%20Compact%20-%2096.png" alt="Pet Battles">
+      </div>
+      <div class="card-body">
+        <div class="card-tags">
+          <span class="tag">Figma</span>
+          <span class="tag">UI/UX</span>
+          <span class="tag">Prototype</span>
+        </div>
+        <h3 class="card-title">Pet Battles</h3>
+        <p class="card-desc">A UI/UX design project with a fully interactive Figma prototype, exploring visual design and user flows.</p>
+        <span class="card-link">View prototype →</span>
+      </div>
+    </div>
+
+    <!-- Mega Man Maker -->
+    <div class="project-card reveal" onclick="window.open('https://ruidiotxienon.wixsite.com/mysite/mega-man-maker', '_blank')">
+      <div class="card-img">
+        <img src="https://static.wixstatic.com/media/6a3ef5_e272c7bcc468491983550ee88e4e7c2b~mv2.webp/v1/fill/w_600,h_600,al_c,q_80/5b986f2a13731.webp" alt="Mega Man Maker">
+      </div>
+      <div class="card-body">
+        <div class="card-tags">
+          <span class="tag">Level Design</span>
+          <span class="tag">Game Design</span>
+        </div>
+        <h3 class="card-title">Mega Man Maker</h3>
+        <p class="card-desc">Custom level design in Mega Man Maker, exploring spatial design, difficulty curves, and player guidance through layout.</p>
+        <span class="card-link">View levels →</span>
+      </div>
+    </div>
+
+    <!-- Flush Frenzy -->
+    <div class="project-card reveal" onclick="window.open('https://ruidiotxienon.wixsite.com/mysite/flush-frenzy', '_blank')">
+      <div class="card-img">
+        <img src="https://static.wixstatic.com/media/6a3ef5_a063b684a4244177b7fcb423b89ddeca~mv2.png/v1/crop/x_361,y_0,w_850,h_851/fill/w_600,h_600,al_c,q_85/Board%20Game.png" alt="Flush Frenzy">
+      </div>
+      <div class="card-body">
+        <div class="card-tags">
+          <span class="tag">Tabletop</span>
+          <span class="tag">Game Design</span>
+          <span class="tag">4-Player</span>
+        </div>
+        <h3 class="card-title">Flush Frenzy</h3>
+        <p class="card-desc">A 4-player card game designed from scratch. Focused on balance, player interaction, and replayability.</p>
+        <span class="card-link">View design →</span>
+      </div>
+    </div>
+
+    <!-- Beat Oil Film -->
+    <div class="project-card reveal" onclick="window.open('https://ruidiotxienon.wixsite.com/mysite/beat-oil-film', '_blank')">
+      <div class="card-img">
+        <img src="https://static.wixstatic.com/media/6a3ef5_5f14f39dd2944e25b64c590d0af3b3fa~mv2.png/v1/crop/x_0,y_44,w_318,h_318/fill/w_600,h_600,al_c,q_85/image_2026-05-06_014332937.png" alt="Beat Oil Film">
+      </div>
+      <div class="card-body">
+        <div class="card-tags">
+          <span class="tag">Digital Media</span>
+          <span class="tag">Advertisement</span>
+        </div>
+        <h3 class="card-title">Beat Oil Film</h3>
+        <p class="card-desc">Promotional media work from army media staff — poster design and advertising materials.</p>
+        <span class="card-link">View work →</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label">Background</div>
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <h2 class="section-title" style="margin-bottom:1.5rem">Driven by<br><em style="font-family:var(--serif);color:var(--accent)">curiosity</em></h2>
+      <p>I'm a <strong>Game Designer with six years of project experience</strong>, having designed and developed multiple games across different scopes and genres. My primary focus is mechanical and technical design — ensuring systems are balanced, scalable, and satisfying to interact with.</p>
+      <p>Beyond development, I've worked on <strong>visual and media design</strong> during my time as part of my army's media staff, creating posters and promotional materials.</p>
+      <p>I adapt quickly, experiment often, and enjoy diving deep into both the creative and technical sides of development. I see feedback not as criticism, but as fuel for growth — an opportunity to sharpen ideas and build stronger systems.</p>
+      <p>As a lifelong gamer, I'm especially drawn to <strong>MMOs, farming simulators, and shooters</strong> — games that give players room to experiment and shape their own experience.</p>
+      <div style="display:flex;gap:1rem;margin-top:2rem;flex-wrap:wrap;">
+        <a href="https://www.linkedin.com/in/ruixiang-ng-308ab4163/" target="_blank" class="btn-ghost">LinkedIn ↗</a>
+        <a href="https://41b76fb7-7961-4950-a301-e9c41ed98d9f.filesusr.com/ugd/6a3ef5_bce46f3f52894cc4ab91cb2649ccc59e.pdf" target="_blank" class="btn-ghost">↓ Download Resume</a>
+      </div>
+    </div>
+
+    <div class="skills-grid reveal">
+      <div class="skill-block">
+        <div class="skill-icon">🎮</div>
+        <div class="skill-name">Game Design</div>
+        <div class="skill-list">Unity · Level Design<br>Systems Design · Balance<br>Player Experience</div>
+      </div>
+      <div class="skill-block">
+        <div class="skill-icon">✏️</div>
+        <div class="skill-name">UI / UX</div>
+        <div class="skill-list">Figma · Prototyping<br>User Flows · Wireframes<br>Visual Design</div>
+      </div>
+      <div class="skill-block">
+        <div class="skill-icon">🎬</div>
+        <div class="skill-name">Digital Media</div>
+        <div class="skill-list">Poster Design · Stop Motion<br>Advertisement · Video<br>Creative Direction</div>
+      </div>
+      <div class="skill-block">
+        <div class="skill-icon">🃏</div>
+        <div class="skill-name">Tabletop Design</div>
+        <div class="skill-list">Card Games · Board Games<br>Ruleset Design<br>Playtesting</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-name">Ng Rui Xiang</div>
+  <div class="footer-links">
+    <a href="https://ruidiotxienon.wixsite.com/mysite/portfolio">Work</a>
+    <a href="https://www.linkedin.com/in/ruixiang-ng-308ab4163/" target="_blank">LinkedIn</a>
+    <a href="https://41b76fb7-7961-4950-a301-e9c41ed98d9f.filesusr.com/ugd/6a3ef5_bce46f3f52894cc4ab91cb2649ccc59e.pdf" target="_blank">Resume</a>
+  </div>
+  <div class="footer-copy">© 2026</div>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+
+  document.querySelectorAll('.project-card').forEach(card => {
+    card.style.cursor = 'pointer';
+  });
+</script>
+</body>
+</html>
