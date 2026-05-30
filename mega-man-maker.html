@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mega Man Maker — Ng Rui Xiang</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #f5f3ee; --bg2: #edeae3; --bg3: #e4e0d8;
+  --border: rgba(0,0,0,0.08); --border2: rgba(0,0,0,0.14);
+  --text: #1a1916; --text2: #6b6860; --text3: #a8a49c;
+  --accent: #1a4fff; --accent-dim: rgba(26,79,255,0.08);
+  --serif: 'DM Serif Display', serif; --sans: 'Outfit', sans-serif; --mono: 'DM Mono', monospace;
+  --radius: 12px; --radius-lg: 20px; --max: 860px;
+}
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--text); font-family: var(--sans); font-weight: 400; line-height: 1.6; overflow-x: hidden; }
+nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 3rem; background: rgba(245,243,238,0.88); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); }
+.nav-logo { font-family: var(--mono); font-size: 13px; color: var(--accent); letter-spacing: 0.05em; text-decoration: none; }
+.nav-links { display: flex; gap: 2rem; list-style: none; }
+.nav-links a { color: var(--text2); text-decoration: none; font-size: 13px; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; transition: color 0.2s; }
+.nav-links a:hover { color: var(--text); }
+.nav-cta { background: var(--accent); color: #fff !important; padding: 0.45rem 1.1rem; border-radius: 6px; font-weight: 600 !important; }
+.project-hero { padding: 7rem 3rem 4rem; max-width: calc(var(--max) + 6rem); margin: 0 auto; }
+.back-link { display: inline-flex; align-items: center; gap: 6px; font-family: var(--mono); font-size: 12px; color: var(--text3); text-decoration: none; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 2rem; transition: color 0.2s; }
+.back-link:hover { color: var(--accent); }
+.project-category { font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; }
+.project-title { font-family: var(--serif); font-size: clamp(2.5rem, 5vw, 4rem); line-height: 1.05; margin-bottom: 1rem; }
+.project-subtitle { font-size: 1rem; color: var(--text2); max-width: 600px; line-height: 1.7; margin-bottom: 2rem; }
+.hero-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 2.5rem; }
+.tag { font-size: 11px; font-family: var(--mono); color: var(--text3); background: var(--bg2); border: 1px solid var(--border); padding: 4px 10px; border-radius: 5px; letter-spacing: 0.04em; }
+.tag.accent { color: var(--accent); background: var(--accent-dim); border-color: rgba(26,79,255,0.2); }
+.hero-banner { width: 100%; max-width: calc(var(--max) + 6rem); margin: 0 auto; aspect-ratio: 16/7; overflow: hidden; border-radius: var(--radius-lg); background: var(--bg3); }
+.hero-banner img { width: 100%; height: 100%; object-fit: cover; }
+.project-content { max-width: var(--max); margin: 0 auto; padding: 4rem 3rem; }
+.meta-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 4rem; padding: 2rem; background: var(--bg2); border-radius: var(--radius-lg); border: 1px solid var(--border); }
+.meta-item label { display: block; font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text3); margin-bottom: 0.4rem; }
+.meta-item span { font-size: 0.875rem; color: var(--text); font-weight: 500; line-height: 1.5; }
+.section-label { font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.75rem; }
+.section-label::after { content: ''; height: 1px; width: 3rem; background: var(--accent); opacity: 0.4; }
+h2.section-heading { font-family: var(--serif); font-size: 1.75rem; margin-bottom: 1.25rem; line-height: 1.2; }
+h3.level-heading { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.75rem; padding: 0.5rem 0.85rem; background: var(--bg2); border-left: 3px solid var(--accent); border-radius: 0 6px 6px 0; }
+.prose { color: var(--text2); font-size: 0.95rem; line-height: 1.8; margin-bottom: 1.25rem; }
+.prose strong { color: var(--text); font-weight: 500; }
+.content-block { margin-bottom: 4rem; }
+.level-block { margin-bottom: 3rem; padding: 2rem; background: var(--bg2); border-radius: var(--radius-lg); border: 1px solid var(--border); }
+.difficulty-badge { display: inline-flex; align-items: center; gap: 6px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 1rem; padding: 4px 12px; border-radius: 100px; }
+.badge-hard { background: rgba(234,153,34,0.12); color: #b87d10; border: 1px solid rgba(234,153,34,0.25); }
+.badge-harder { background: rgba(200,70,30,0.1); color: #b84020; border: 1px solid rgba(200,70,30,0.2); }
+.badge-hardest { background: rgba(150,20,20,0.1); color: #8a1010; border: 1px solid rgba(150,20,20,0.2); }
+.divider { height: 1px; background: var(--border); margin: 3rem 0; }
+.reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.5s ease, transform 0.5s ease; }
+.reveal.visible { opacity: 1; transform: none; }
+footer { padding: 3rem; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+.footer-name { font-family: var(--serif); font-size: 1.25rem; color: var(--text2); }
+.footer-links { display: flex; gap: 1.5rem; }
+.footer-links a { color: var(--text3); text-decoration: none; font-size: 13px; transition: color 0.2s; }
+.footer-links a:hover { color: var(--accent); }
+.footer-copy { font-size: 12px; color: var(--text3); font-family: var(--mono); }
+@media (max-width: 768px) { nav { padding: 1rem 1.5rem; } .project-hero { padding: 6rem 1.5rem 2.5rem; } .project-content { padding: 2.5rem 1.5rem; } .meta-grid { grid-template-columns: 1fr 1fr; } footer { flex-direction: column; gap: 1rem; text-align: center; } }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">RX — Portfolio</a>
+  <ul class="nav-links">
+    <li><a href="index.html#projects">Work</a></li>
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="https://www.linkedin.com/in/ruixiang-ng-308ab4163/" target="_blank" class="nav-cta">LinkedIn ↗</a></li>
+  </ul>
+</nav>
+
+<div class="project-hero">
+  <a href="index.html" class="back-link">← Back to all work</a>
+  <div class="project-category">Level Design · Platformer</div>
+  <h1 class="project-title">Mega Man Maker</h1>
+  <p class="project-subtitle">Three progressively-difficult custom levels designed in Mega Man Maker, exploring escalating challenge design, unique character mechanics, and environmental storytelling.</p>
+  <div class="hero-tags">
+    <span class="tag">Level Design</span>
+    <span class="tag">Mega Man Maker</span>
+    <span class="tag">Difficulty Design</span>
+    <span class="tag">Playtesting</span>
+  </div>
+</div>
+
+<div class="hero-banner">
+  <img src="https://static.wixstatic.com/media/6a3ef5_670d2e38c35743e5b2a6303e399246bc~mv2.png/v1/fill/w_1200,h_525,al_c,q_85/6a3ef5_670d2e38c35743e5b2a6303e399246bc~mv2.png" alt="Mega Man Maker level design">
+</div>
+
+<div class="project-content">
+
+  <div class="meta-grid reveal">
+    <div class="meta-item">
+      <label>Platform</label>
+      <span>PC</span>
+    </div>
+    <div class="meta-item">
+      <label>My Role</label>
+      <span>Level Designer</span>
+    </div>
+    <div class="meta-item">
+      <label>Tools Used</label>
+      <span>Mega Man Maker</span>
+    </div>
+  </div>
+
+  <div class="content-block reveal">
+    <div class="section-label">Overview</div>
+    <h2 class="section-heading">Project Overview</h2>
+    <p class="prose">The task was to create <strong>3 different levels in Mega Man Maker</strong>, each with increasing difficulty from easy to hard. Good level design requires finding a balance between challenging and completable — players must feel engaged without feeling cheated.</p>
+    <p class="prose">As someone who personally gravitates toward the hardest difficulties, I set myself the personal challenge of making all three levels hard — ranging from hard to hardest — while ensuring each remained genuinely completable.</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="content-block reveal">
+    <div class="section-label">Levels</div>
+    <h2 class="section-heading">The Three Levels</h2>
+
+    <div class="level-block">
+      <div class="difficulty-badge badge-hard">Level 1 — Hard</div>
+      <h3 class="level-heading">Constant Movement &amp; Timed Obstacles</h3>
+      <p class="prose">Two core rules: the player must be constantly moving, and it must be possible to clear without taking damage. Enemies threw projectiles from above with no way to kill them, forcing constant dodging. Spiked maces on the ground required precise timing to navigate.</p>
+      <p class="prose">The final section — advancing through a magma beam while on a direction-changing conveyor belt — was where most playtesters failed. This revealed a flaw: the earlier sections were too easy to tank through with checkpoints, meaning only the end was actually hard. Rather than fix this (as it was the "easiest" of the three), I applied the lesson to the next levels.</p>
+    </div>
+
+    <div class="level-block">
+      <div class="difficulty-badge badge-harder">Level 2 — Harder</div>
+      <h3 class="level-heading">Bass &amp; Precision Platforming</h3>
+      <p class="prose">To eliminate the "tank hits and heal at checkpoints" exploit, this level uses instant-kill spikes and bottomless pits. Any contact with hazards resets the player. Three design goals: harmful elements must always kill; utilise Bass's unique dash and omni-directional shooting; keep the number of unique elements low and do more with variations.</p>
+      <p class="prose">A subtle but effective trick: on 1-block drops, placing a spike at the same height 2 blocks ahead makes players think the space is safe, then punishes the instinct to hold forward. The level splits into Upper (golden path, harder to stay on) and Lower (more direct but punishing) routes, with the cracked block mechanic introduced and then used in a surprise moment at the end of the Upper path.</p>
+      <p class="prose">The hardest single obstacle — a 1-block dash jump requiring a direction reversal mid-air to avoid a spike on the landing platform — was completed by nobody but myself during playtesting.</p>
+    </div>
+
+    <div class="level-block">
+      <div class="difficulty-badge badge-hardest">Level 3 — Hardest</div>
+      <h3 class="level-heading">Roll, Tel Tel &amp; Environmental Storytelling</h3>
+      <p class="prose">The goal shifted: not just hardest, but most interesting. Using Roll (the female Mega Man character), the level was built around two ideas: Roll's invincible roll mechanic, and Tel Tel's weather-changing effect that freezes invisible spikes into solid platforms — enabling a path where the route in differs from the route out.</p>
+      <p class="prose">A discovered accident: the Splash Platform, when launched, can squash the player. Combined with rolling under spikes ON the platform while it's in motion, the result was a mechanically rich section that surprised even playtesters who understood the individual parts.</p>
+      <p class="prose">The final act chains together every mechanic learned — roll-cancel timing, switch blocks, instant-kill beams, and speeding chainsaw blades — with 1-hit-kill stakes throughout. Players had to perform the roll-cancel from much earlier in the level, likely having forgotten how, right at the very end.</p>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-name">Ng Rui Xiang</div>
+  <div class="footer-links">
+    <a href="index.html#projects">All Work</a>
+    <a href="https://www.linkedin.com/in/ruixiang-ng-308ab4163/" target="_blank">LinkedIn</a>
+    <a href="https://41b76fb7-7961-4950-a301-e9c41ed98d9f.filesusr.com/ugd/6a3ef5_bce46f3f52894cc4ab91cb2649ccc59e.pdf" target="_blank">Resume</a>
+  </div>
+  <div class="footer-copy">© 2026</div>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver(entries => entries.forEach((e,i) => { if(e.isIntersecting){ setTimeout(()=>e.target.classList.add('visible'), i*80); obs.unobserve(e.target); } }), { threshold: 0.08 });
+  reveals.forEach(el => obs.observe(el));
+</script>
+</body>
+</html>

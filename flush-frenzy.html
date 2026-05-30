@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flush Frenzy — Ng Rui Xiang</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #f5f3ee; --bg2: #edeae3; --bg3: #e4e0d8;
+  --border: rgba(0,0,0,0.08); --border2: rgba(0,0,0,0.14);
+  --text: #1a1916; --text2: #6b6860; --text3: #a8a49c;
+  --accent: #1a4fff; --accent-dim: rgba(26,79,255,0.08);
+  --serif: 'DM Serif Display', serif; --sans: 'Outfit', sans-serif; --mono: 'DM Mono', monospace;
+  --radius: 12px; --radius-lg: 20px; --max: 860px;
+}
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--text); font-family: var(--sans); font-weight: 400; line-height: 1.6; overflow-x: hidden; }
+nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 3rem; background: rgba(245,243,238,0.88); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); }
+.nav-logo { font-family: var(--mono); font-size: 13px; color: var(--accent); letter-spacing: 0.05em; text-decoration: none; }
+.nav-links { display: flex; gap: 2rem; list-style: none; }
+.nav-links a { color: var(--text2); text-decoration: none; font-size: 13px; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; transition: color 0.2s; }
+.nav-links a:hover { color: var(--text); }
+.nav-cta { background: var(--accent); color: #fff !important; padding: 0.45rem 1.1rem; border-radius: 6px; font-weight: 600 !important; }
+.project-hero { padding: 7rem 3rem 4rem; max-width: calc(var(--max) + 6rem); margin: 0 auto; }
+.back-link { display: inline-flex; align-items: center; gap: 6px; font-family: var(--mono); font-size: 12px; color: var(--text3); text-decoration: none; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 2rem; transition: color 0.2s; }
+.back-link:hover { color: var(--accent); }
+.project-category { font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; }
+.project-title { font-family: var(--serif); font-size: clamp(2.5rem, 5vw, 4rem); line-height: 1.05; margin-bottom: 1rem; }
+.project-subtitle { font-size: 1rem; color: var(--text2); max-width: 600px; line-height: 1.7; margin-bottom: 2rem; }
+.hero-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 2.5rem; }
+.tag { font-size: 11px; font-family: var(--mono); color: var(--text3); background: var(--bg2); border: 1px solid var(--border); padding: 4px 10px; border-radius: 5px; letter-spacing: 0.04em; }
+.tag.accent { color: var(--accent); background: var(--accent-dim); border-color: rgba(26,79,255,0.2); }
+.hero-banner { width: 100%; max-width: calc(var(--max) + 6rem); margin: 0 auto; aspect-ratio: 16/7; overflow: hidden; border-radius: var(--radius-lg); background: var(--bg3); }
+.hero-banner img { width: 100%; height: 100%; object-fit: cover; }
+.project-content { max-width: var(--max); margin: 0 auto; padding: 4rem 3rem; }
+.meta-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 4rem; padding: 2rem; background: var(--bg2); border-radius: var(--radius-lg); border: 1px solid var(--border); }
+.meta-item label { display: block; font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text3); margin-bottom: 0.4rem; }
+.meta-item span { font-size: 0.875rem; color: var(--text); font-weight: 500; line-height: 1.5; }
+.section-label { font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.75rem; }
+.section-label::after { content: ''; height: 1px; width: 3rem; background: var(--accent); opacity: 0.4; }
+h2.section-heading { font-family: var(--serif); font-size: 1.75rem; margin-bottom: 1.25rem; line-height: 1.2; }
+.prose { color: var(--text2); font-size: 0.95rem; line-height: 1.8; margin-bottom: 1.25rem; }
+.prose strong { color: var(--text); font-weight: 500; }
+.content-block { margin-bottom: 4rem; }
+.img-frame { border-radius: var(--radius); overflow: hidden; background: var(--bg3); margin: 2rem 0; border: 1px solid var(--border); }
+.img-frame img { width: 100%; display: block; }
+.img-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 2rem 0; }
+.divider { height: 1px; background: var(--border); margin: 3rem 0; }
+.btn-ghost { display: inline-flex; align-items: center; gap: 8px; color: var(--text2); padding: 0.75rem 1.5rem; border: 1px solid var(--border2); border-radius: 8px; font-size: 0.9rem; text-decoration: none; transition: color 0.2s, border-color 0.2s; }
+.btn-ghost:hover { color: var(--text); border-color: rgba(0,0,0,0.25); }
+.reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.5s ease, transform 0.5s ease; }
+.reveal.visible { opacity: 1; transform: none; }
+footer { padding: 3rem; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+.footer-name { font-family: var(--serif); font-size: 1.25rem; color: var(--text2); }
+.footer-links { display: flex; gap: 1.5rem; }
+.footer-links a { color: var(--text3); text-decoration: none; font-size: 13px; transition: color 0.2s; }
+.footer-links a:hover { color: var(--accent); }
+.footer-copy { font-size: 12px; color: var(--text3); font-family: var(--mono); }
+@media (max-width: 768px) { nav { padding: 1rem 1.5rem; } .project-hero { padding: 6rem 1.5rem 2.5rem; } .project-content { padding: 2.5rem 1.5rem; } .meta-grid { grid-template-columns: 1fr 1fr; } .img-row { grid-template-columns: 1fr; } footer { flex-direction: column; gap: 1rem; text-align: center; } }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">RX — Portfolio</a>
+  <ul class="nav-links">
+    <li><a href="index.html#projects">Work</a></li>
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="https://www.linkedin.com/in/ruixiang-ng-308ab4163/" target="_blank" class="nav-cta">LinkedIn ↗</a></li>
+  </ul>
+</nav>
+
+<div class="project-hero">
+  <a href="index.html" class="back-link">← Back to all work</a>
+  <div class="project-category">Tabletop · Game Design · Systems</div>
+  <h1 class="project-title">Flush Frenzy</h1>
+  <p class="project-subtitle">A 4-player physical card game where players compete to keep their toilet clean by managing dice rolls and card combinations — balancing luck with strategic decision-making.</p>
+  <div class="hero-tags">
+    <span class="tag">Physical Card Game</span>
+    <span class="tag">4-Player</span>
+    <span class="tag">Balance Design</span>
+    <span class="tag">Photoshop</span>
+    <span class="tag">Illustrator</span>
+    <span class="tag">Maya</span>
+  </div>
+</div>
+
+<div class="hero-banner">
+  <img src="https://static.wixstatic.com/media/6a3ef5_a063b684a4244177b7fcb423b89ddeca~mv2.png/v1/fill/w_1200,h_525,al_c,q_90/6a3ef5_a063b684a4244177b7fcb423b89ddeca~mv2.png" alt="Flush Frenzy card game">
+</div>
+
+<div class="project-content">
+
+  <div class="meta-grid reveal">
+    <div class="meta-item">
+      <label>Format</label>
+      <span>Physical Card Game</span>
+    </div>
+    <div class="meta-item">
+      <label>My Role</label>
+      <span>Gameplay Balance, Systems Designer</span>
+    </div>
+    <div class="meta-item">
+      <label>Tools Used</label>
+      <span>Photoshop · Illustrator · Maya · Excel</span>
+    </div>
+  </div>
+
+  <div class="content-block reveal">
+    <div class="section-label">Overview</div>
+    <h2 class="section-heading">Game Overview</h2>
+    <p class="prose">Flush Frenzy is a <strong>4-player physical card game</strong>. Each player competes to collect cleaning supplies to keep their toilet clean by managing dice rolls and strategising card combinations. The core loop revolves around rolling coloured dice and making decisions to maximise the chance that the dice rolls match cards in your hand.</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="content-block reveal">
+    <div class="section-label">Process</div>
+    <h2 class="section-heading">Project Process</h2>
+    <p class="prose">Due to the extensive complexity of the game, it was very difficult for new players to comprehend the rules. I went through <strong>several iterations</strong> of phrasing the instructions, alongside introducing new mechanics that elevated the overall game experience while not overwhelming first-time players.</p>
+    <div class="img-row">
+      <div class="img-frame"><img src="https://static.wixstatic.com/media/6a3ef5_e2d949c71fe445e6871aa3e33152a011~mv2.png/v1/fill/w_600,h_640,al_c,q_85/6a3ef5_e2d949c71fe445e6871aa3e33152a011~mv2.png" alt="Game cards iteration 1"></div>
+      <div class="img-frame"><img src="https://static.wixstatic.com/media/6a3ef5_532b6c6580d044b7ace5884f28864165~mv2.png/v1/fill/w_600,h_640,al_c,q_85/6a3ef5_532b6c6580d044b7ace5884f28864165~mv2.png" alt="Game cards iteration 2"></div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="content-block reveal">
+    <div class="section-label">Challenges</div>
+    <h2 class="section-heading">Key Challenges</h2>
+    <p class="prose">The greatest challenge was by far <strong>phrasing the rules</strong> in a way first-time players could understand. Initially the game had no special actions. Introducing them revealed through playtesting that new players struggled to grasp all the actions at once, which severely limited their decision-making.</p>
+    <p class="prose">We also found that having someone actively demonstrate the actions and combinations vastly accelerated learning. This insight drove the creation of reference cards — dedicated visual aids designed to convey card combo functions at a glance, even within tight size constraints.</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="content-block reveal">
+    <div class="section-label">Deliverables</div>
+    <h2 class="section-heading">Rulebook Creation</h2>
+    <p class="prose">I created two distinct rulebook layouts — one designed to resemble a ply of toilet paper (thematically on-brand), and one following a standard page format. The final product was a hybrid of the two approaches.</p>
+    <div class="img-row">
+      <div class="img-frame"><img src="https://static.wixstatic.com/media/6a3ef5_00993d984cd341b5bc265bb2dd909476~mv2.png/v1/fill/w_600,h_430,al_c,q_85/Card%20Game%20RuleBook-01.png" alt="Rulebook layout 1"></div>
+      <div class="img-frame"><img src="https://static.wixstatic.com/media/6a3ef5_f352d1b5f5ab4adeac31c2b7800e94f5~mv2.png/v1/fill/w_600,h_430,al_c,q_85/Card%20Game%20RuleBook-02.png" alt="Rulebook layout 2"></div>
+    </div>
+    <a href="https://drive.google.com/file/d/1WFpVa6M_GBuAmzipacTKL-Zazu2tq1Ru/view" target="_blank" class="btn-ghost">View Final Rulebook ↗</a>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="content-block reveal">
+    <div class="section-label">Design</div>
+    <h2 class="section-heading">Reference Cards</h2>
+    <p class="prose">Card combinations were one of the most interacted mechanics, so I designed reference cards that effectively conveyed each combo's function while remaining legible at small print sizes.</p>
+    <div class="img-row">
+      <div class="img-frame"><img src="https://static.wixstatic.com/media/6a3ef5_4ebe2cd0d5804e9f8ed1534c130e1b63~mv2.png/v1/fill/w_500,h_710,al_c,q_85/6a3ef5_4ebe2cd0d5804e9f8ed1534c130e1b63~mv2.png" alt="Reference card WIP"></div>
+      <div class="img-frame"><img src="https://static.wixstatic.com/media/6a3ef5_5da438dea99446b8b8773110cfc9394f~mv2.png/v1/fill/w_500,h_685,al_c,q_85/6a3ef5_5da438dea99446b8b8773110cfc9394f~mv2.png" alt="Reference card final"></div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-name">Ng Rui Xiang</div>
+  <div class="footer-links">
+    <a href="index.html#projects">All Work</a>
+    <a href="https://www.linkedin.com/in/ruixiang-ng-308ab4163/" target="_blank">LinkedIn</a>
+    <a href="https://41b76fb7-7961-4950-a301-e9c41ed98d9f.filesusr.com/ugd/6a3ef5_bce46f3f52894cc4ab91cb2649ccc59e.pdf" target="_blank">Resume</a>
+  </div>
+  <div class="footer-copy">© 2026</div>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver(entries => entries.forEach((e,i) => { if(e.isIntersecting){ setTimeout(()=>e.target.classList.add('visible'), i*80); obs.unobserve(e.target); } }), { threshold: 0.08 });
+  reveals.forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
