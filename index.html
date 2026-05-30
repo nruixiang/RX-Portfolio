@@ -104,7 +104,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     align-items: center;
-    padding: 0 3rem;
+    padding: 0 6rem;
     padding-top: 80px;
     position: relative;
     overflow: hidden;
@@ -170,10 +170,11 @@
 
   .hero-name {
     font-family: var(--serif);
-    font-size: clamp(3rem, 5vw, 5.5rem);
+    font-size: clamp(2.5rem, 4vw, 4.5rem);
     line-height: 1.0;
     color: var(--text);
     margin-bottom: 0.75rem;
+    white-space: nowrap;
     animation: fadeUp 0.6s 0.1s ease both;
   }
 
@@ -601,7 +602,8 @@
   /* ─── RESPONSIVE ─── */
   @media (max-width: 900px) {
     nav { padding: 1rem 1.5rem; }
-    .hero { grid-template-columns: 1fr; padding: 6rem 1.5rem 3rem; text-align: center; }
+    .hero { grid-template-columns: 1fr; padding: 6rem 2.5rem 3rem; text-align: center; }
+    .hero-name { white-space: normal; font-size: clamp(2rem, 8vw, 3rem); }
     .hero-visual { display: none; }
     .hero-bio { max-width: 100%; }
     .hero-actions { justify-content: center; }
@@ -634,7 +636,7 @@
 
   <div class="hero-content">
     <div class="hero-tag">Available for opportunities</div>
-    <h1 class="hero-name">Ng Rui<br><em>Xiang</em></h1>
+    <h1 class="hero-name">Ng Rui <em>Xiang</em></h1>
     <p class="hero-title">UI/UX Designer &amp; Game Designer · Singapore</p>
     <p class="hero-bio">Six years of project experience designing and developing games across different scopes and genres. I focus on mechanical and technical design — building systems that are balanced, scalable, and satisfying to interact with.</p>
     <div class="hero-actions">
