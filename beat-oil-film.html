@@ -49,6 +49,8 @@ h2.section-heading { font-family: var(--serif); font-size: 1.75rem; margin-botto
 .video-label h3 { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.25rem; }
 .video-label p { font-size: 0.8rem; color: var(--text3); font-family: var(--mono); }
 .video-placeholder { aspect-ratio: 16/9; background: var(--bg3); display: flex; align-items: center; justify-content: center; font-size: 2rem; color: var(--text3); }
+.video-embed { position: relative; aspect-ratio: 16/9; }
+.video-embed iframe { position: absolute; inset: 0; width: 100%; height: 100%; }
 .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.5s ease, transform 0.5s ease; }
 .reveal.visible { opacity: 1; transform: none; }
 footer { padding: 3rem; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
@@ -121,17 +123,20 @@ footer { padding: 3rem; border-top: 1px solid var(--border); display: flex; alig
           <h3>Beat Oil: Heat of the Moment</h3>
           <p>Advertisement #1</p>
         </div>
-        <div class="video-placeholder">🎬</div>
+        <div class="video-embed">
+          <iframe src="https://www.youtube.com/embed/UGINeLlio0U" title="Beat Oil: Heat of the Moment" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
       </div>
       <div class="video-card">
         <div class="video-label">
           <h3>Beat Oil: Nice Try</h3>
           <p>Advertisement #2</p>
         </div>
-        <div class="video-placeholder">🎬</div>
+        <div class="video-embed">
+          <iframe src="https://www.youtube.com/embed/j_FOmQ436Oo" title="Beat Oil: Nice Try" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
       </div>
     </div>
-    <p class="prose" style="margin-top: 1.5rem; font-size: 0.85rem;">Videos are hosted on the original Wix portfolio. <a href="https://ruidiotxienon.wixsite.com/mysite/beat-oil-film" target="_blank" style="color: var(--accent);">View on original site ↗</a></p>
   </div>
 
 </div>
