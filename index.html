@@ -101,12 +101,12 @@
   /* ─── HERO ─── */
   .hero {
     min-height: 100vh;
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     align-items: center;
     justify-content: center;
-    text-align: center;
-    padding: 0 3rem;
+    gap: 0.5rem;
+    padding: 0 12rem;
     padding-top: 80px;
     position: relative;
     overflow: hidden;
@@ -137,10 +137,10 @@
   .hero-content {
     position: relative;
     z-index: 1;
+    text-align: left;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    max-width: 700px;
+    align-items: flex-start;
   }
 
   .hero-tag {
@@ -251,16 +251,17 @@
     position: relative;
     z-index: 1;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-bottom: 2.5rem;
-    animation: fadeUp 0.6s 0.1s ease both;
+    gap: 1.5rem;
+    animation: fadeUp 0.6s 0.35s ease both;
   }
 
   .avatar-ring {
     position: relative;
-    width: 180px;
-    height: 180px;
+    width: 240px;
+    height: 240px;
   }
 
   .avatar-ring::before {
@@ -284,22 +285,19 @@
   @keyframes spin { to { transform: rotate(360deg); } }
 
   .avatar-img {
-    width: 180px;
-    height: 180px;
+    width: 240px;
+    height: 240px;
     border-radius: 50%;
     object-fit: cover;
+    object-position: center top;
     border: 2px solid var(--border2);
     display: block;
   }
 
   .stat-chips {
-    position: absolute;
     display: flex;
-    flex-direction: column;
-    gap: 10px;
-    left: calc(100% + 24px);
-    top: 50%;
-    transform: translateY(-50%);
+    flex-direction: row;
+    gap: 12px;
   }
 
   .stat-chip {
@@ -601,9 +599,10 @@
   /* ─── RESPONSIVE ─── */
   @media (max-width: 900px) {
     nav { padding: 1rem 1.5rem; }
-    .hero { padding: 6rem 1.5rem 3rem; }
+    .hero { grid-template-columns: 1fr; padding: 6rem 1.5rem 3rem; text-align: center; }
+    .hero-content { align-items: center; text-align: center; }
     .hero-name { white-space: normal; font-size: clamp(2rem, 8vw, 3rem); }
-    .stat-chips { position: static; transform: none; flex-direction: row; flex-wrap: wrap; justify-content: center; margin-top: 1rem; }
+    .stat-chips { flex-direction: row; justify-content: center; }
     .hero-visual { display: none; }
     .hero-bio { max-width: 100%; }
     .hero-actions { justify-content: center; }
@@ -634,6 +633,17 @@
   <div class="hero-grid-bg"></div>
   <div class="hero-glow"></div>
 
+  <div class="hero-content">
+    <div class="hero-tag">Available for opportunities</div>
+    <h1 class="hero-name">Ng Rui <em>Xiang</em></h1>
+    <p class="hero-title">UI/UX Designer &amp; Game Designer · Singapore</p>
+    <p class="hero-bio">Six years of project experience designing and developing games across different scopes and genres. I focus on mechanical and technical design — building systems that are balanced, scalable, and satisfying to interact with.</p>
+    <div class="hero-actions">
+      <a href="#projects" class="btn-primary">View my work →</a>
+      <a href="https://41b76fb7-7961-4950-a301-e9c41ed98d9f.filesusr.com/ugd/6a3ef5_bce46f3f52894cc4ab91cb2649ccc59e.pdf" target="_blank" class="btn-ghost">↓ Resume</a>
+    </div>
+  </div>
+
   <div class="hero-visual">
     <div class="avatar-ring">
       <img class="avatar-img" src="images/RXDP.png" alt="Ng Rui Xiang">
@@ -643,25 +653,6 @@
         <strong>6+</strong>
         <span>Years experience</span>
       </div>
-      <div class="stat-chip">
-        <strong>7</strong>
-        <span>Projects shipped</span>
-      </div>
-      <div class="stat-chip">
-        <strong>Unity</strong>
-        <span>Primary engine</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="hero-content">
-    <div class="hero-tag">Available for opportunities</div>
-    <h1 class="hero-name">Ng Rui <em>Xiang</em></h1>
-    <p class="hero-title">UI/UX Designer &amp; Game Designer · Singapore</p>
-    <p class="hero-bio">Six years of project experience designing and developing games across different scopes and genres. I focus on mechanical and technical design — building systems that are balanced, scalable, and satisfying to interact with.</p>
-    <div class="hero-actions">
-      <a href="#projects" class="btn-primary">View my work →</a>
-      <a href="https://41b76fb7-7961-4950-a301-e9c41ed98d9f.filesusr.com/ugd/6a3ef5_bce46f3f52894cc4ab91cb2649ccc59e.pdf" target="_blank" class="btn-ghost">↓ Resume</a>
     </div>
   </div>
 </section>
